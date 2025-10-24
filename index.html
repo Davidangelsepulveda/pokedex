@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página Pokémon</title>
+    <link rel="stylesheet" href="./output.css" />
+    <script type="module" src="./js/david.js" defer></script>
+  </head>
+
+  <body
+    class="min-h-screen flex flex-col bg-gradient-to-b from-gray-500 to-gray-900"
+  >
+    <!-- HEADER PRINCIPAL -->
+    <header class="flex items-start justify-center h-20">
+      <div
+        class="h-[80%] w-full bg-radial from-red-500 from-40% to-red-900 flex items-center justify-center"
+      >
+        <div class="h-[65%] w-[80%] flex items-center justify-start">
+          <img class="sm:h-[90%] h-[70%]" src="./img/pokebola.png" alt="" />
+        </div>
+        <div
+          class="absolute flex items-center justify-center top-15 lg:h-1.5 lg:top-15 h-1 w-full bg-white"
+        ></div>
+        <div
+          class="absolute flex items-center justify-center top-11 lg:top-10 h-8 w-8 lg:h-10 lg:w-10 bg-white rounded-full"
+        >
+          <div
+            class="border border-gray-400 h-[50%] w-[50%] rounded-full"
+          ></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main
+      class="flex-1 relative mx-auto my-6 rounded-lg w-[95%] sm:w-[90%] md:w-[85%] lg:w-[80%] xl:w-[75%] 2xl:w-[70%] bg-white bg-[url('/img/fondoPokemon.png')] bg-contain shadow-lg"
+    >
+      <!-- HEADER INTERNO: FILTROS -->
+      <header
+        class="w-full bg-gray-100 border-b border-gray-300 p-4 rounded-t-lg"
+      >
+        <div
+          class="flex flex-col sm:flex-row items-center justify-between gap-4"
+        >
+          <!-- Búsqueda -->
+          <div
+            class="w-full sm:w-1/2 flex items-center bg-white border rounded-full px-3 py-2 shadow-sm"
+          >
+            <input
+              type="text"
+              id="searchPokemon"
+              placeholder="Filtrar por nombre..."
+              class="flex-1 outline-none text-sm"
+            />
+            <svg
+              class="w-5 h-5 text-gray-500"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 
+                 7.5 0 1 0 5.196 5.196a7.5 7.5 
+                 0 0 0 10.607 10.607Z"
+              />
+            </svg>
+          </div>
+
+          <!-- Otros filtros -->
+          <div class="flex gap-2">
+            <select
+              id="filterType"
+              class="px-3 py-2 border rounded-lg text-sm bg-white shadow-sm"
+            >
+              <option value="">Todos los tipos</option>
+              <option value="fire">Fuego</option>
+              <option value="water">Agua</option>
+              <option value="grass">Planta</option>
+              <option value="electric">Eléctrico</option>
+              <option value="psychic">Psíquico</option>
+              <option value="rock">Roca</option>
+              <option value="ground">Tierra</option>
+              <option value="fairy">Hada</option>
+            </select>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+    <input id="minAltura" type="number" placeholder="Altura mínima (m)" class="p-2 rounded border w-full sm:w-1/4">
+    <input id="maxAltura" type="number" placeholder="Altura máxima (m)" class="p-2 rounded border w-full sm:w-1/4">
+    <button id="filtro" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+      Aplicar filtro
+    </button>
+  </div>
+        </div>
+      </header>
+
+      <!-- CARDS -->
+      <section
+        id="conteinerCards"
+        class="p-7 gap-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 place-items-center font-sans"
+      >
+        <!-- Renderizado dinámico de tarjetas -->
+      </section>
+
+      <!-- PAGINATION -->
+      <div
+        id="pagination"
+        class="flex justify-center items-center mt-6 space-x-2 p-4"
+      ></div>
+
+      <div
+        id="modal"
+        class="fixed inset-0 z-50 hidden flex items-center justify-center"
+      >
+        <!-- Overlay -->
+        <div
+          id="overlay"
+          class="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        ></div>
+
+        <!-- Dialog (dialogo centrado y más pequeño) -->
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modalTitle"
+          class="relative z-10 max-w-[640px] w-full mx-4 bg-white rounded-2xl shadow-xl transform transition-all duration-300 opacity-0 scale-90 pointer-events-none"
+        >
+          <div
+            id="bodyModalContent"
+            class="w-full bg-red-500/80 shadow-lg rounded-lg overflow-hidden p-4 sm:p-6 max-h-[80vh] overflow-y-auto"
+          >
+            <!-- contenido dinámico -->
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer
+      class="flex items-center justify-evenly bg-radial from-white from-40% to-gray-400 text-gray-700 text-center py-4 mt-6"
+    >
+      <p class="text-sm">&copy; 2025 Pokémon Fan Page</p>
+      <div class="w-40 flex items-center justify-between">
+        <a
+          href="https://www.facebook.com/PokemonOficialLatAm/?brand_redir=230809307041021#"
+          target="_blank"
+        >
+          <svg
+            class="hover:cursor-pointer w-6 h-6 text-gray-600"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M13.135 6H15V3h-1.865a4.147 4.147 0 0 0-4.142 4.142V9H7v3h2v9.938h3V12h2.021l.592-3H12V6.591A.6.6 0 0 1 12.592 6h.543Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </a>
+        <a href="https://www.instagram.com/pokemon/#" target="_blank">
+          <svg
+            class="hover:cursor-pointer w-6 h-6 text-gray-600"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              fill-rule="evenodd"
+              d="M3 8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8Zm5-3a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H8Zm7.597 2.214a1 1 0 0 1 1-1h.01a1 1 0 1 1 0 2h-.01a1 1 0 0 1-1-1ZM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm-5 3a5 5 0 1 1 10 0 5 5 0 0 1-10 0Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </a>
+        <a href="https://www.youtube.com/@PokemonOficialES" target="_blank">
+          <svg
+            class="hover:cursor-pointer w-6 h-6 text-gray-600"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M21.7 8.037a4.26 4.26 0 0 0-.789-1.964 2.84 2.84 0 0 0-1.984-.839c-2.767-.2-6.926-.2-6.926-.2s-4.157 0-6.928.2a2.836 2.836 0 0 0-1.983.839 4.225 4.225 0 0 0-.79 1.965 30.146 30.146 0 0 0-.2 3.206v1.5a30.12 30.12 0 0 0 .2 3.206c.094.712.364 1.39.784 1.972.604.536 1.38.837 2.187.848 1.583.151 6.731.2 6.731.2s4.161 0 6.928-.2a2.844 2.844 0 0 0 1.985-.84 4.27 4.27 0 0 0 .787-1.965 30.12 30.12 0 0 0 .2-3.206v-1.516a30.672 30.672 0 0 0-.202-3.206Zm-11.692 6.554v-5.62l5.4 2.819-5.4 2.801Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </a>
+      </div>
+    </footer>
+  </body>
+</html>
+
+
