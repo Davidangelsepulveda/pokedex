@@ -1,4 +1,4 @@
-import { filtroAltura } from "./jorge.js";
+/* import { filtroAltura } from "./jorge.js";
 
 fetch("https://pokeapi.co/api/v2/pokemon/ditto")
   .then(response => response.json())
@@ -44,7 +44,7 @@ async function cargarPokemons(limit = 151) {
 }
 
 // ✅ 2. Renderizar las tarjetas en pantalla
-/* function mostrarPokemons(lista) {
+function mostrarPokemons(lista) {
   contenedor.innerHTML = "";
 
   if (lista.length === 0) {
@@ -67,10 +67,10 @@ async function cargarPokemons(limit = 151) {
     `;
     contenedor.appendChild(card);
   });
-} */
+}
 
 // ✅ 3. Filtro combinado (por nombre y tipo)
-function filtrarPokemons() {
+export function filtrarPokemons() {
   const texto = searchInput.value.toLowerCase();
   const tipoSeleccionado = typeFilter.value;
 
@@ -91,3 +91,49 @@ typeFilter.addEventListener("change", filtrarPokemons);
 
 // ✅ 5. Inicializar
 cargarPokemons();
+ */
+
+import { allPokemons, mostrarPokemons } from "./mostrar151.js";
+
+// ✅ Filtro por nombre y tipo
+export function filtrarPokemons() {
+  const searchInput = document.getElementById("searchPokemon");
+  const typeFilter = document.getElementById("filterType");
+
+  const texto = searchInput.value.toLowerCase();
+  const tipoSeleccionado = typeFilter.value;
+
+  const filtrados = allPokemons.filter((p) => {
+    const coincideNombre = p.nombre.toLowerCase().includes(texto);
+    const coincideTipo =
+      tipoSeleccionado === "" || p.tipos.includes(tipoSeleccionado);
+    return coincideNombre && coincideTipo;
+  });
+
+  mostrarPokemons(filtrados);
+}
+
+// ✅ Filtro por altura (ya combinable)
+export function filtroAltura(allPokemons, renderPokemons) {
+  const btn = document.querySelector("#filtro");
+
+  btn.addEventListener("click", () => {
+    let min = parseFloat(document.getElementById("minAltura").value) || 0;
+    let max = parseFloat(document.getElementById("maxAltura").value) || Infinity;
+
+    let tipoSeleccionado = document.getElementById("filterType").value;
+    let texto = document.getElementById("searchPokemon").value.toLowerCase();
+
+    const filtrados = allPokemons.filter((p) => {
+      let altura = p.height / 10;
+      let coincideAltura = altura >= min && altura <= max;
+      let coincideTipo =
+        tipoSeleccionado === "" || p.tipos.includes(tipoSeleccionado);
+      let coincideNombre = p.nombre.toLowerCase().includes(texto);
+
+      return coincideAltura && coincideTipo && coincideNombre;
+    });
+
+    renderPokemons(filtrados);
+  });
+}
