@@ -82,3 +82,4 @@ typeFilter.addEventListener("change", filtrarPokemons);
 
 // ✅ 5. Inicializar
 cargarPokemons();
+let pepe=5;
