@@ -10,10 +10,17 @@ document.addEventListener("DOMContentLoaded", () => {
 // main.js
 import { cargarPokemons } from "./mostrar151.js";
 import { filtrarPokemons } from "./david.js";
+import { paginasF } from "./pagina.js";
 
-// ✅ Iniciar app
-cargarPokemons();
+document.addEventListener("DOMContentLoaded", async () => {
+  const pokemons = await cargarPokemons(); // ahora sí devuelve la lista
+  paginasF(pokemons, 12);
 
-// ✅ Conectar los filtros de búsqueda y tipo
-document.getElementById("searchPokemon").addEventListener("input", filtrarPokemons);
-document.getElementById("filterType").addEventListener("change", filtrarPokemons);
+  // Conectar filtros
+  document
+    .getElementById("searchPokemon")
+    .addEventListener("input", filtrarPokemons);
+  document
+    .getElementById("filterType")
+    .addEventListener("change", filtrarPokemons);
+});
