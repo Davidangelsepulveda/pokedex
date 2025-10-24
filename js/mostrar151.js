@@ -15,8 +15,7 @@ export async function mostrar151() {
 
       // contenedor
       container.innerHTML += `
-        <div class="bg-white shadow-md rounded-lg p-4 w-48 text-center 
-                    hover:shadow-xl hover:scale-105 transition-transform duration-200">
+        <div class="bg-white rounded-xl shadow-lg p-4 w-56 hover:scale-105 transition-transform text-center ">
           <img 
             src="${details.sprites.other['official-artwork'].front_default}" 
             alt="${details.name}" 
