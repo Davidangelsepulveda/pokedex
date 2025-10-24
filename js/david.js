@@ -44,7 +44,7 @@ async function cargarPokemons(limit = 151) {
 }
 
 // ✅ 2. Renderizar las tarjetas en pantalla
-function mostrarPokemons(lista) {
+/* function mostrarPokemons(lista) {
   contenedor.innerHTML = "";
 
   if (lista.length === 0) {
@@ -67,7 +67,7 @@ function mostrarPokemons(lista) {
     `;
     contenedor.appendChild(card);
   });
-}
+} */
 
 // ✅ 3. Filtro combinado (por nombre y tipo)
 function filtrarPokemons() {
