@@ -37,7 +37,6 @@ import { filtrarPokemons } from "./david.js";
 }
  */
 
-
 import { filtroAltura } from "./david.js";
 
 export let allPokemons = [];
@@ -67,9 +66,10 @@ export async function cargarPokemons(limit = 151) {
 
     allPokemons = detalles;
     mostrarPokemons(allPokemons);
-
-    // Activar filtro por altura después de cargar
     filtroAltura(allPokemons, mostrarPokemons);
+
+    // 🔥 AGREGA ESTA LÍNEA
+    return allPokemons;
   } catch (error) {
     console.error("Error al cargar Pokémon:", error);
   }
@@ -100,5 +100,3 @@ export function mostrarPokemons(lista) {
     contenedor.appendChild(card);
   });
 }
-
-
