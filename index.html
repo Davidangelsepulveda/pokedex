@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./output.css" />
+    <script src="./main.js" defer></script>
+
+    <title>Pokédex</title>
+  </head>
+
+  <body
+    class="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen font-sans"
+  >
+    <!-- HEADER -->
+    <header class="w-full bg-white shadow-md p-4 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <div class="flex items-center gap-3">
+          <img src="./img/pokebola.png" alt="logo pokebola" class="h-8 w-8" />
+          <h1
+            class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent"
+          >
+            Pokédex
+          </h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto w-full px-4 py-6">
+      <aside class="mb-6 space-y-4">
+        <div class="w-full">
+          <label for="buscador" class="sr-only">Buscar Pokémon</label>
+          <div class="relative">
+            <input
+              type="text"
+              id="buscador"
+              placeholder="Buscar por nombre o número..."
+              class="w-full p-4 pl-12 rounded-2xl border-2 border-gray-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all"
+            />
+
+            <svg
+              class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              ></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- FILTROSSS------------------- -->
+        <div id="filtros" class="bg-white rounded-2xl shadow-sm p-4 space-y-3">
+          <h2 class="text-lg font-semibold text-gray-700 mb-3">Filtros</h2>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div class="sm:col-span-2 lg:col-span-1">
+              <label
+                for="tipo"
+                class="block text-sm font-medium text-gray-600 mb-1"
+              >
+                Tipo
+              </label>
+              <select
+                id="tipo"
+                class="w-full p-3 rounded-lg border-2 border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all cursor-pointer"
+              >
+                <option value="">Todos los tipos</option>
+                <option value="fire">Fuego</option>
+                <option value="water">Agua</option>
+                <option value="grass">Planta</option>
+                <option value="electric">Eléctrico</option>
+                <option value="bug">Bicho</option>
+                <option value="psychic">Psíquico</option>
+                <option value="normal">Normal</option>
+                <option value="rock">Roca</option>
+                <option value="ground">Tierra</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <div
+        id="error"
+        class="hidden bg-red-50 border-2 border-red-200 rounded-2xl p-8 text-center"
+      >
+        <svg
+          class="w-16 h-16 text-red-400 mx-auto mb-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+        <h3 class="text-xl font-bold text-red-700 mb-2">
+          ¡Oops! Algo salió mal
+        </h3>
+        <p class="text-red-600">
+          No se pudieron cargar los Pokémon. Por favor, intenta de nuevo.
+        </p>
+      </div>
+
+      <div
+        id="sinResultados"
+        class="hidden bg-yellow-50 border-2 border-yellow-200 rounded-2xl p-8 text-center"
+      >
+        <svg
+          class="w-16 h-16 text-yellow-400 mx-auto mb-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+        <h3 class="text-xl font-bold text-yellow-700 mb-2">
+          No se encontraron Pokémon
+        </h3>
+        <p class="text-yellow-600">
+          Intenta con otros filtros o términos de búsqueda.
+        </p>
+      </div>
+
+      <!-- GRID DE LOS POKEMONS -->
+      <main
+        id="listaPokemons"
+        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4"
+      >
+        <!-- Ejemplitooooooo-->
+        <article
+          class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer transform hover:-translate-y-2"
+        >
+          <div
+            class="bg-gradient-to-br from-red-400 to-orange-400 p-4 relative"
+          >
+            <span
+              class="absolute top-2 right-2 bg-white/30 backdrop-blur-sm text-white text-xs font-bold px-2 py-1 rounded-full"
+            >
+              #001
+            </span>
+            <img
+              src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+              alt="Bulbasaur"
+              class="w-full h-32 object-contain drop-shadow-lg"
+            />
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-gray-800 text-lg mb-2 capitalize">
+              Bulbasaur
+            </h3>
+            <div class="flex flex-wrap gap-1 mb-3">
+              <span
+                class="bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded-full"
+                >Planta</span
+              >
+              <span
+                class="bg-purple-100 text-purple-700 text-xs font-semibold px-2 py-1 rounded-full"
+                >Veneno</span
+              >
+            </div>
+            <div class="text-sm text-gray-600 space-y-1">
+              <p><span class="font-semibold">Altura:</span> 0.7 m</p>
+              <p><span class="font-semibold">Peso:</span> 6.9 kg</p>
+            </div>
+          </div>
+        </article>
+      </main>
+    </div>
+  </body>
+</html>
