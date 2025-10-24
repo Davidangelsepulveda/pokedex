@@ -17,7 +17,7 @@
         class="h-[80%] w-full bg-radial from-red-500 from-40% to-red-900 flex items-center justify-center"
       >
         <div class="h-[65%] w-[80%] flex items-center justify-start">
-          <img class="sm:h-[90%] h-[70%]" src="img/pokeLogo.png" alt="" />
+          <img class="sm:h-[90%] h-[70%]" src="./img/pokebola.png" alt="" />
         </div>
         <div
           class="absolute flex items-center justify-center top-15 lg:h-1.5 lg:top-15 h-1 w-full bg-white"
@@ -88,6 +88,13 @@
               <option value="fairy">Hada</option>
             </select>
           </div>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+    <input id="minAltura" type="number" placeholder="Altura mínima (m)" class="p-2 rounded border w-full sm:w-1/4">
+    <input id="maxAltura" type="number" placeholder="Altura máxima (m)" class="p-2 rounded border w-full sm:w-1/4">
+    <button id="filtro" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+      Aplicar filtro
+    </button>
+  </div>
         </div>
       </header>
 

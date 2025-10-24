@@ -1,3 +1,5 @@
+import { filtroAltura } from "./jorge.js";
+
 fetch("https://pokeapi.co/api/v2/pokemon/ditto")
   .then(response => response.json())
   .then(data => console.log(data))
@@ -8,6 +10,7 @@ const searchInput = document.getElementById("searchPokemon");
 const typeFilter = document.getElementById("filterType");
 
 let allPokemons = [];
+let convertHeight = (decimeters) => (decimeters / 10).toFixed(1);
 
 // ✅ 1. Cargar los primeros 100 Pokémon desde la PokéAPI
 async function cargarPokemons(limit = 151) {
@@ -25,12 +28,16 @@ async function cargarPokemons(limit = 151) {
           nombre: pokemon.name,
           imagen: pokemon.sprites.other["official-artwork"].front_default,
           tipos: pokemon.types.map((t) => t.type.name),
+          height: pokemon.height,
         };
       })
     );
 
     allPokemons = detalles;
     mostrarPokemons(allPokemons);
+
+    //AGREGANDO MI PARTE PARA FILTRAR POR ALTURA
+    filtroAltura(allPokemons,mostrarPokemons);
   } catch (error) {
     console.error("Error al cargar Pokémon:", error);
   }
@@ -56,6 +63,7 @@ function mostrarPokemons(lista) {
       <img src="${p.imagen}" alt="${p.nombre}" class="w-24 h-24 mx-auto mb-3">
       <h2 class="capitalize font-bold text-lg">${p.nombre}</h2>
       <p class="text-sm text-gray-500">${p.tipos.join(", ")}</p>
+      <p class="text-gray-600">Altura: ${convertHeight(p.height)} m</p>
     `;
     contenedor.appendChild(card);
   });
@@ -79,6 +87,7 @@ function filtrarPokemons() {
 // ✅ 4. Eventos para los filtros
 searchInput.addEventListener("input", filtrarPokemons);
 typeFilter.addEventListener("change", filtrarPokemons);
+
 
 // ✅ 5. Inicializar
 cargarPokemons();
